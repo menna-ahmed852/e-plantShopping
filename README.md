@@ -15,7 +15,7 @@ paradise-nursery
 │   ├── App.jsx         # Main App component
 │   ├── index.css       # Global CSS styles
 │   ├── components       # Reusable components
-│   │   ├── Header.jsx   # Header component
+│   │   ├── Navbar.jsx   # Navbar component
 │   │   └── Footer.jsx   # Footer component
 │   ├── pages           # Application pages
 │   │   └── Home.jsx     # Home page component
@@ -56,7 +56,7 @@ To get started with the project, follow these steps:
 
 ## Features
 
-- A responsive layout with a header and footer.
+- A responsive layout with a Navbar and footer.
 - A home page that serves as the main entry point.
 - Custom hooks for data fetching.
 - API client for handling requests.

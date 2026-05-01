@@ -1,45 +1,59 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../redux/CartSlice";
 
-const plants = [
-  { id: 1, name: "Aloe Vera", price: 10, category: "Succulents", img: "aloe.jpg" },
-  { id: 2, name: "Snake Plant", price: 15, category: "Indoor", img: "snake.jpg" },
-  { id: 3, name: "Peace Lily", price: 20, category: "Flowering", img: "lily.jpg" },
-  { id: 4, name: "Cactus", price: 8, category: "Succulents", img: "cactus.jpg" },
-  { id: 5, name: "Fern", price: 12, category: "Indoor", img: "fern.jpg" },
-  { id: 6, name: "Orchid", price: 25, category: "Flowering", img: "orchid.jpg" },
-];
+
+
+
+
+
+const plants = {
+  Indoor: [
+    { id: 1, name: "Snake Plant", price: 20, img: "🌿" },
+    { id: 2, name: "Peace Lily", price: 25, img: "🌱" },
+    { id: 3, name: "Aloe Vera", price: 15, img: "🌵" },
+    { id: 4, name: "Spider Plant", price: 18, img: "🌿" },
+    { id: 5, name: "Fern", price: 22, img: "🌿" },
+    { id: 6, name: "ZZ Plant", price: 30, img: "🌱" }
+  ],
+  Outdoor: [
+    { id: 7, name: "Rose", price: 10, img: "🌹" },
+    { id: 8, name: "Tulip", price: 12, img: "🌷" },
+    { id: 9, name: "Lavender", price: 14, img: "💜" },
+    { id: 10, name: "Sunflower", price: 16, img: "🌻" },
+    { id: 11, name: "Jasmine", price: 18, img: "🌼" },
+    { id: 12, name: "Daisy", price: 11, img: "🌼" }
+  ]
+};
 
 function ProductList() {
   const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart.cartItems);
+  const cart = useSelector((state) => state.cart.cartItems);
 
-  const isInCart = (id) => cart.some(item => item.id === id);
+  const isInCart = (id) => cart.some((item) => item.id === id);
 
   return (
+    
     <div>
-      <h2>Our Plants 🌱</h2>
+      <h2>Our Plants</h2>
 
-      {["Succulents", "Indoor", "Flowering"].map(category => (
+      {Object.entries(plants).map(([category, items]) => (
         <div key={category}>
           <h3>{category}</h3>
 
-          {plants
-            .filter(p => p.category === category)
-            .map(plant => (
-              <div key={plant.id}>
-                {plant.img}
-                <h4>{plant.name}</h4>
-                <p>${plant.price}</p>
+          {items.map((plant) => (
+            <div key={plant.id}>
+              <p>{plant.img}</p>
+              <h4>{plant.name}</h4>
+              <p>${plant.price}</p>
 
-                <button
-                  disabled={isInCart(plant.id)}
-                  onClick={() => dispatch(addItem(plant))}
-                >
-                  {isInCart(plant.id) ? "Added" : "Add to Cart"}
-                </button>
-              </div>
-            ))}
+              <button
+                onClick={() => dispatch(addItem(plant))}
+                disabled={isInCart(plant.id)}
+              >
+                {isInCart(plant.id) ? "Added" : "Add to Cart"}
+              </button>
+            </div>
+          ))}
         </div>
       ))}
     </div>

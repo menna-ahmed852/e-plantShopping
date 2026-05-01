@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-function Header() {
+function Navbar() {
   const cart = useSelector(state => state.cart.cartItems);
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -15,4 +15,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Navbar;

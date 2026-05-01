@@ -1,19 +1,28 @@
 import { useSelector, useDispatch } from "react-redux";
-import { updateQuantity, decreaseQty, removeItem } from "../redux/CartSlice";
+import {
+  updateQuantity,
+  decreaseQuantity,
+  removeItem
+} from "../redux/CartSlice";
 import { useNavigate } from "react-router-dom";
+
+import Navbar from "./Navbar";
+
+<Navbar />
 
 function CartItem() {
   const cart = useSelector(state => state.cart.cartItems);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const totalCost = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  const calculateTotalAmount = (cart) =>
+    cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  const totalCost = calculateTotalAmount(cart);
 
   return (
     <div>
+      <Navbar />
       <h2>Shopping Cart</h2>
 
       <h3>Total Items: {cart.length}</h3>
@@ -21,13 +30,19 @@ function CartItem() {
 
       {cart.map(item => (
         <div key={item.id}>
-          {item.img}
+          <p>{item.img}</p>
           <h4>{item.name}</h4>
           <p>Unit Price: ${item.price}</p>
           <p>Total: ${item.price * item.quantity}</p>
 
-          <button onClick={() => dispatch(updateQuantity(item.id))}>+</button>
-          <button onClick={() => dispatch(decreaseQty(item.id))}>-</button>
+          <button onClick={() => dispatch(updateQuantity(item.id))}>
+            +
+          </button>
+
+          <button onClick={() => dispatch(decreaseQuantity(item.id))}>
+            -
+          </button>
+
           <button onClick={() => dispatch(removeItem(item.id))}>
             Delete
           </button>
@@ -46,3 +61,5 @@ function CartItem() {
 }
 
 export default CartItem;
+
+
